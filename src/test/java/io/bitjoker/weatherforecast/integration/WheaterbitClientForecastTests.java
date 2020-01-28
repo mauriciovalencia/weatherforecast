@@ -43,7 +43,7 @@ class WheaterbitClientForecastTests {
         try {
             log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
             WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
-                    .getDailyForecastByCountryAndCity(country,city);
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,1);
             Assert.fail("DON´T ENTER HERE");
         }catch (WeatherbitException ex){
             log.info("WeatherbitException: " + ex.getMessage());
@@ -60,7 +60,25 @@ class WheaterbitClientForecastTests {
         try {
             log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
             WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
-                    .getDailyForecastByCountryAndCity(country,city);
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,1);
+            Assert.fail("DON´T ENTER HERE");
+        }catch (WeatherbitException ex){
+            log.info("WeatherbitException: " + ex.getMessage());
+            Assert.assertEquals(ex.getCode(), PARAM_CANT_BE_EMPTY_OR_NULL.getValue());
+        }
+    }
+
+    @Test
+    public void unableRetrieveForecast_nullDaysLimitParam(){
+
+        country.setName(countryName);
+        city = null;
+        Integer daysLimit = null;
+
+        try {
+            log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
+            WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,daysLimit);
             Assert.fail("DON´T ENTER HERE");
         }catch (WeatherbitException ex){
             log.info("WeatherbitException: " + ex.getMessage());
@@ -77,7 +95,7 @@ class WheaterbitClientForecastTests {
         try {
             log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
             WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
-                    .getDailyForecastByCountryAndCity(country,city);
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,1);
             Assert.fail("DON´T ENTER HERE");
         }catch (WeatherbitException ex){
             log.info("WeatherbitException: " + ex.getMessage());
@@ -94,11 +112,29 @@ class WheaterbitClientForecastTests {
         try {
             log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
             WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
-                    .getDailyForecastByCountryAndCity(country,city);
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,1);
             Assert.fail("DON´T ENTER HERE");
         }catch (WeatherbitException ex){
             log.info("WeatherbitException: " + ex.getMessage());
             Assert.assertEquals(ex.getCode(), PARAM_CANT_BE_EMPTY_OR_NULL.getValue());
+        }
+    }
+
+    @Test
+    public void unableRetrieveForecast_negativeDaysLimitParam(){
+
+        country.setName(countryName);
+        city.setName(cityName);
+        Integer daysLimit = -1;
+
+        try {
+            log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
+            WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,daysLimit);
+            Assert.fail("DON´T ENTER HERE");
+        }catch (WeatherbitException ex){
+            log.info("WeatherbitException: " + ex.getMessage());
+            Assert.assertEquals(ex.getCode(), PARAM_IS_NOT_VALID.getValue());
         }
     }
 
@@ -111,10 +147,67 @@ class WheaterbitClientForecastTests {
         try {
             log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
             WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
-                    .getDailyForecastByCountryAndCity(country,city);
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,16);
             Long numRecords = Long.valueOf(weatherbitResponse.getData().size());
             log.info("TOTAL_RECORDS_RETRIEVED: "+numRecords.toString());
-            Assert.assertEquals("SERVICE_RESPONSE_16_RECORDS", Long.valueOf(16),numRecords);
+            Assert.assertEquals("SERVICE_DEFAULT_RESPONSE_16_RECORDS", Long.valueOf(16),numRecords);
+        }catch (WeatherbitException ex){
+            log.info("WeatherbitException: " + ex.getMessage());
+            Assert.fail("DON´T ENTER HERE");
+        }
+    }
+
+    @Test
+    public void isComplete_forecastFor7Days() {
+
+        country.setName(countryName);
+        city.setName(cityName);
+
+        try {
+            log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
+            WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,7);
+            Long numRecords = Long.valueOf(weatherbitResponse.getData().size());
+            log.info("TOTAL_RECORDS_RETRIEVED: "+numRecords.toString());
+            Assert.assertEquals("SERVICE_CUSTOM_RESPONSE_7_RECORDS", Long.valueOf(7),numRecords);
+        }catch (WeatherbitException ex){
+            log.info("WeatherbitException: " + ex.getMessage());
+            Assert.fail("DON´T ENTER HERE");
+        }
+    }
+
+    @Test
+    public void defaultResponse_forecastFor0Days() {
+
+        country.setName(countryName);
+        city.setName(cityName);
+
+        try {
+            log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
+            WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,0);
+            Long numRecords = Long.valueOf(weatherbitResponse.getData().size());
+            log.info("TOTAL_RECORDS_RETRIEVED: "+numRecords.toString());
+            Assert.assertEquals("SERVICE_DEFAULT_RESPONSE_16_RECORDS", Long.valueOf(16),numRecords);
+        }catch (WeatherbitException ex){
+            log.info("WeatherbitException: " + ex.getMessage());
+            Assert.fail("DON´T ENTER HERE");
+        }
+    }
+
+    @Test
+    public void defaultResponse_forecastFor17Days() {
+
+        country.setName(countryName);
+        city.setName(cityName);
+
+        try {
+            log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
+            WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,17);
+            Long numRecords = Long.valueOf(weatherbitResponse.getData().size());
+            log.info("TOTAL_RECORDS_RETRIEVED: "+numRecords.toString());
+            Assert.assertEquals("SERVICE_DEFAULT_RESPONSE_16_RECORDS", Long.valueOf(16),numRecords);
         }catch (WeatherbitException ex){
             log.info("WeatherbitException: " + ex.getMessage());
             Assert.fail("DON´T ENTER HERE");
@@ -130,7 +223,7 @@ class WheaterbitClientForecastTests {
         try{
             log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
             WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
-                    .getDailyForecastByCountryAndCity(country,city);
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,1);
             Assert.fail("DON´T ENTER HERE");
         }catch (WeatherbitException ex){
             log.info("WeatherbitException: " + ex.getMessage());
@@ -147,12 +240,13 @@ class WheaterbitClientForecastTests {
         try{
             log.info("CALL_WEATHERBIT_FORECAST_SERVICE");
             WeatherbitResponse weatherbitResponse = new WeatherbitServiceImpl()
-                    .getDailyForecastByCountryAndCity(country,city);
+                    .getDailyForecastByCountryAndCityAndDaysLimit(country,city,1);
             Assert.fail("DON´T ENTER HERE");
         }catch (WeatherbitException ex){
             log.info("WeatherbitException: " + ex.getMessage());
             Assert.assertEquals(ex.getCode(), RESPONSE_IS_NULL.getValue());
         }
     }
+
 
 }

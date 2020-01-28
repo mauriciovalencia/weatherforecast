@@ -36,7 +36,7 @@ public class WeatherbitServiceImpl implements WeatherbitService {
     }
 
     @Override
-    public WeatherbitResponse getDailyForecastByCountryAndCity(Country country, City city) {
+    public WeatherbitResponse getDailyForecastByCountryAndCityAndDaysLimit(Country country, City city, Integer daysLimit) {
 
         // =============== Settings =============
         WeatherbitResponse result;
@@ -57,8 +57,21 @@ public class WeatherbitServiceImpl implements WeatherbitService {
             throw new EmptyParamException("city");
         }
 
+        // is daysLimit null
+        if(null == daysLimit){
+            throw new EmptyParamException("daysLimit");
+        }
+        // is daysLimit negative
+        if(daysLimit < 0){
+            throw new InvalidParamException("daysLimit",daysLimit.toString());
+        }
+        // is daysLimit 0 or morethan 16
+        if(daysLimit == 0 || daysLimit > 16){
+            daysLimit = 16; //Max default retrieve records, accord api docs.
+        }
+
         String apiUri = baseURL + "forecast/daily?city="+city.getName()
-                +"&country="+country.getName()+"&key="+apiKey;
+                +"&country="+country.getName()+"&days="+daysLimit+"&key="+apiKey;
         RestTemplate restTemplate = new RestTemplate();
         result = restTemplate.getForObject(apiUri, WeatherbitResponse.class);
         if(result == null){
