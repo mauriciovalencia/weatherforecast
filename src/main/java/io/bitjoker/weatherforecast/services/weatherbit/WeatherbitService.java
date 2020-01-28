@@ -20,11 +20,13 @@ public interface WeatherbitService {
     //String getDailyForecastByPostalCode(PostalCode pc); //TODO: just for implement later
 
     /**
+     *
      * @param country
      * @param city
+     * @param daysLimit
      * @return { WeatherbitResponse }
      * @description Return 16 day forecast, review WheaterbitResponse Object
      */
-    WeatherbitResponse getDailyForecastByCountryAndCity(Country country, City city);
+    WeatherbitResponse getDailyForecastByCountryAndCityAndDaysLimit(Country country, City city, Integer daysLimit);
 
 }
