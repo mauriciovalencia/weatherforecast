@@ -20,11 +20,12 @@ import static io.bitjoker.weatherforecast.services.weatherbit.constants.Errors.*
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DirtiesContext
+//@DirtiesContext
 class WheaterbitClientForecastTests {
 
     private Logger log = LoggerFactory.getLogger(WheaterbitClientForecastTests.class);
 
+    // Data For Tests
     private final String countryName = "chile";
     private final String cityName = "santiago";
     private final String invalidCountryName = "invalid";
@@ -32,7 +33,6 @@ class WheaterbitClientForecastTests {
 
     private Country country = new Country();
     private City city = new City();
-
 
     @Test
     public void unableRetrieveForecast_nullCountryParam(){

@@ -22,10 +22,6 @@ public class WeatherbitException extends RuntimeException {
         return super.getMessage();
     }
 
-    public Integer getCode(){
-        return code;
-    }
-
     @Override
     public String toString() {
         return "WeatherbitException(code=" + this.getCode() + ", uuid=" +
