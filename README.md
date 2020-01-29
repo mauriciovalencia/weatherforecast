@@ -9,17 +9,21 @@ Download or clone this project, then through IntelliJIDEA or another IDE, open t
 For next commands, you have to inside root path of application.
 
 1. Build Application
+
 > ./gradlew build
 
 2. Run Application
+
 > java -jar build/libs/app.jar
 
 3. Deploy on docker
+
 > <b>For create image:</b> docker build -f Dockerfile -t weatherforecast .
 > <b>For deploy like a service:</b> docker-compose up -d --build --force-recreate
 
 4. API Endpoint
-Rember the country and city only names, just like that.
+
+Remember the country and city only names, just like that.
 > <b>http://localhost:8080/api/v1/weather/forecast?country=chile&city=santiago</b>
 
 # Architecture
