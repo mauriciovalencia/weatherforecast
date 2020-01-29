@@ -65,6 +65,10 @@ Weatherbit-->WeatherRequest: This is my answer
 WeatherRequest->>Weatherbit: Ok
 ```
 
+Notes:
+If diagrams not shown, just paste this readme source code on this editor.
+http://editor.md.ipandao.com/examples/full.html
+
 
 Enjoy it!.
 
