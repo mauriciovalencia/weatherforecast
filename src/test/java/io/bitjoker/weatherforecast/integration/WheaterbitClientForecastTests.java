@@ -20,7 +20,7 @@ import static io.bitjoker.weatherforecast.services.weatherbit.constants.Errors.*
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@DirtiesContext
+@DirtiesContext
 class WheaterbitClientForecastTests {
 
     private Logger log = LoggerFactory.getLogger(WheaterbitClientForecastTests.class);

@@ -23,9 +23,9 @@ import org.springframework.web.client.RestTemplate;
 
 import static io.bitjoker.weatherforecast.services.weatherbit.constants.Errors.PARAM_CANT_BE_EMPTY_OR_NULL;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
-//@DirtiesContext
+@DirtiesContext
 public class WeatherForecastTests {
 
     private Logger log = LoggerFactory.getLogger(WheaterbitClientForecastTests.class);
@@ -33,19 +33,17 @@ public class WeatherForecastTests {
     // Data For Tests
     private final String countryName = "chile";
     private final String cityName = "santiago";
-    private final String invalidCountryName = "invalid";
-    private final String invalidCityName = "invalid";
-
+    private String uri = "http://localhost:8080/api/v1/weather/forecast";
     private Country country = new Country();
     private City city = new City();
 
 
+    //TODO: unableRetrieveForecast_nullCountryParam only for manual test
     //@Test
     @Ignore
     public void unableRetrieveForecast_nullCountryParam(){
 
         city.setName(cityName);
-        String uri = "http://localhost:8080/api/v1/weather/forecast";
 
         try {
             log.info("CALL_WEATHER_FORECAST_SERVICE");
@@ -65,12 +63,12 @@ public class WeatherForecastTests {
     }
 
 
+    //TODO: unableRetrieveForecast_nullCityParam only for manual test
     //@Test
     @Ignore
     public void unableRetrieveForecast_nullCityParam(){
 
         country.setName(countryName);
-        String uri = "http://localhost:8080/api/v1/weather/forecast";
 
         try {
             log.info("CALL_WEATHER_FORECAST_SERVICE");
@@ -89,12 +87,13 @@ public class WeatherForecastTests {
         }
     }
 
-    @Test
+    //TODO: isComplete_forecastFor7Days only for manual test
+    //@Test
+    @Ignore
     public void isComplete_forecastFor7Days(){
 
         country.setName(countryName);
         city.setName(cityName);
-        String uri = "http://localhost:8080/api/v1/weather/forecast";
 
         try {
             log.info("CALL_WEATHER_FORECAST_SERVICE");
