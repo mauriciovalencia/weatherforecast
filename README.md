@@ -23,7 +23,7 @@ For next commands, you have to inside root path of application.
 
 4. API Endpoint
 
-Remember the country and city only names, just like that.
+Remember, the country and city only names, just like that.
 > <b>http://localhost:8080/api/v1/weather/forecast?country=chile&city=santiago</b>
 
 # Architecture
