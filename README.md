@@ -68,10 +68,17 @@ Note right of Weatherbit: Weatherbit {Country,City,DaysLimit}
 Weatherbit-->WeatherRequest: This is my answer
 WeatherRequest->>Weatherbit: Ok
 ```
-
 Notes:
 If diagrams not shown, just paste this readme source code on this editor.
 http://editor.md.ipandao.com/examples/full.html
+
+
+# Minimal Requirements
+
+For run and deploy.
++ Java 1.8+
++ Gradle 6.1.1, only by now, version 7 in compatibility revision
++ Docker version 19.03.5
 
 
 Enjoy it!.
